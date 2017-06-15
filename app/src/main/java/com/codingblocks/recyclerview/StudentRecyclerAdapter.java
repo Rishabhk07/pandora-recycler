@@ -20,6 +20,15 @@ public class StudentRecyclerAdapter extends RecyclerView.Adapter<StudentRecycler
     ArrayList<Student> studentArrayList;
     Context context;
 
+    @Override
+    public int getItemViewType(int position) {
+        Student thisStudent = studentArrayList.get(position);
+        if (thisStudent.getCourse().equals("Pandora")){
+            return 0;
+        }
+        return 1;
+    }
+
     public StudentRecyclerAdapter(ArrayList<Student> studentArrayList, Context context) {
         this.studentArrayList = studentArrayList;
         this.context = context;
@@ -29,8 +38,10 @@ public class StudentRecyclerAdapter extends RecyclerView.Adapter<StudentRecycler
     public StudentViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Log.d(TAG, "onCreateViewHolder: ");
         LayoutInflater li = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View itemView = li.inflate(R.layout.student_layout,parent,false);
+        View itemView = li.inflate(R.layout.student_layout
+                ,parent,false);
         StudentViewHolder studentViewHolder = new StudentViewHolder(itemView);
+
         return studentViewHolder;
     }
 

@@ -2,9 +2,13 @@ package com.codingblocks.recyclerview;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 
 import java.util.ArrayList;
 
@@ -12,66 +16,48 @@ public class MainActivity extends AppCompatActivity {
 
     ArrayList<Student> studentArrayList;
     RecyclerView recyclerView;
+    EditText etName;
+    EditText etCourse;
+    Button btnAdd;
+    StudentRecyclerAdapter studentRecyclerAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.add_layout_student);
         studentArrayList = generateStudents();
         recyclerView = (RecyclerView) findViewById(R.id.rvStudent);
-        StudentRecyclerAdapter studentRecyclerAdapter = new StudentRecyclerAdapter(studentArrayList,this);
+        etName = (EditText) findViewById(R.id.etName);
+        etCourse = (EditText) findViewById(R.id.etCourse);
+        studentRecyclerAdapter = new StudentRecyclerAdapter(studentArrayList,this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(studentRecyclerAdapter);
+        btnAdd = (Button) findViewById(R.id.btnAdd);
+
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                addStudent();
+            }
+        });
+
+    }
+
+    public void addStudent(){
+        String name = etName.getText().toString();
+        String course = etCourse.getText().toString();
+
+        studentArrayList.add(new Student(name,course));
+        studentRecyclerAdapter.notifyDataSetChanged();
+        etName.setText("");
+        etCourse.setText("");
+
     }
 
 
     static ArrayList<Student> generateStudents(){
         ArrayList<Student> newStudents = new ArrayList<>();
-
-        newStudents.add(new Student("A","Padnora"));
-        newStudents.add(new Student("B","Elixir"));
-        newStudents.add(new Student("C","Launchpad"));
-        newStudents.add(new Student("D","Crux"));
-        newStudents.add(new Student("E","Perceptron"));
-        newStudents.add(new Student("F","Pandnora"));
-        newStudents.add(new Student("G","Pandora"));
-        newStudents.add(new Student("H","Elixir"));
-        newStudents.add(new Student("A","Padnora"));
-        newStudents.add(new Student("B","Elixir"));
-        newStudents.add(new Student("C","Launchpad"));
-        newStudents.add(new Student("D","Crux"));
-        newStudents.add(new Student("E","Perceptron"));
-        newStudents.add(new Student("F","Pandnora"));
-        newStudents.add(new Student("G","Pandora"));
-        newStudents.add(new Student("H","Elixir"));newStudents.add(new Student("A","Padnora"));
-        newStudents.add(new Student("B","Elixir"));
-        newStudents.add(new Student("C","Launchpad"));
-        newStudents.add(new Student("D","Crux"));
-        newStudents.add(new Student("E","Perceptron"));
-        newStudents.add(new Student("F","Pandnora"));
-        newStudents.add(new Student("G","Pandora"));
-        newStudents.add(new Student("H","Elixir"));newStudents.add(new Student("A","Padnora"));
-        newStudents.add(new Student("B","Elixir"));
-        newStudents.add(new Student("C","Launchpad"));
-        newStudents.add(new Student("D","Crux"));
-        newStudents.add(new Student("E","Perceptron"));
-        newStudents.add(new Student("F","Pandnora"));
-        newStudents.add(new Student("G","Pandora"));
-        newStudents.add(new Student("H","Elixir"));newStudents.add(new Student("A","Padnora"));
-        newStudents.add(new Student("B","Elixir"));
-        newStudents.add(new Student("C","Launchpad"));
-        newStudents.add(new Student("D","Crux"));
-        newStudents.add(new Student("E","Perceptron"));
-        newStudents.add(new Student("F","Pandnora"));
-        newStudents.add(new Student("G","Pandora"));
-        newStudents.add(new Student("H","Elixir"));newStudents.add(new Student("A","Padnora"));
-        newStudents.add(new Student("B","Elixir"));
-        newStudents.add(new Student("C","Launchpad"));
-        newStudents.add(new Student("D","Crux"));
-        newStudents.add(new Student("E","Perceptron"));
-        newStudents.add(new Student("F","Pandnora"));
-        newStudents.add(new Student("G","Pandora"));
-        newStudents.add(new Student("H","Elixir"));
-
+        newStudents.add(new Student("Rishabh","Pandora"));
         return newStudents;
 
     }
